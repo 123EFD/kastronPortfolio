@@ -5,7 +5,7 @@ const projects = [
         id: 1,
         title: "Flappytron",
         description: "An improvement of the classic Flappy Bird game, built with Unity. Features include responsive design, sound effects, a scoring system and more challenging gameplay.",
-        image: "public/projects/project1.png",
+        image: "/projects/project1.png",
         tags: ["Unity", "C#", "Game Development"],
         demoUrl: "https://khytron.itch.io/kastron",
         githubUrl: "https://github.com/Khytron/Flappytron.git",
