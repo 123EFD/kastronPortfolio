@@ -10,6 +10,16 @@ const projects = [
         demoUrl: "https://khytron.itch.io/kastron",
         githubUrl: "https://github.com/Khytron/Flappytron.git",
     },
+
+        {
+        id: 2,
+        title: "Financial Dashboard",
+        description: "A comprehensive financial dashboard that provides insights into personal finances, including income, expenses, and savings. Built with Streamlit and Plotly for data visualization.",
+        image: "/projects/project2.png",
+        tags: ["Streamlit", "Python", "Data Visualization"],
+        demoUrl: "https://kas-financialdashboard.streamlit.app/",
+        githubUrl: "https://github.com/123EFD/FINANCEAPP.git",
+    },
 ]
 
 export const ProjectsSection = () => {
