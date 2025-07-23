@@ -11,7 +11,7 @@ const projects = [
         githubUrl: "https://github.com/Khytron/Flappytron.git",
     },
 
-        {
+    {
         id: 2,
         title: "Financial Dashboard",
         description: "A comprehensive financial dashboard that provides insights into personal finances, including income, expenses, and savings. Built with Streamlit and Plotly for data visualization.",
@@ -20,6 +20,17 @@ const projects = [
         demoUrl: "https://kas-financialdashboard.streamlit.app/",
         githubUrl: "https://github.com/123EFD/FINANCEAPP.git",
     },
+
+    {
+        id: 3,
+        title: "Converso",
+        description: "Converso is an AI-powered learning assistant that allows users to create personalized AI companions for focused, subject-specific discussions. ",
+        image: "/projects/project3.png",
+        tags: ["Next.js", "React", "Clerk","Supabase","Vapi","Shadcn/ui"],
+        demoUrl: "https://saas-app-nine-orpin.vercel.app/",
+        githubUrl: "https://github.com/123EFD/saas-app.git",
+    },
+
 ]
 
 export const ProjectsSection = () => {
