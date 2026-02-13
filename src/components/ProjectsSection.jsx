@@ -27,7 +27,7 @@ const projects = [
         description: "Converso is an AI-powered learning assistant that allows users to create personalized AI companions for focused, subject-specific discussions. ",
         image: "/projects/project3.png",
         tags: ["Next.js", "React", "Clerk"],
-        demoUrl: "https://saas-app-nine-orpin.vercel.app/",
+        demoUrl: "https://saas-app-git-main-kas-projects-8c2415e7.vercel.app/",
         githubUrl: "https://github.com/123EFD/saas-app.git",
     },
 
