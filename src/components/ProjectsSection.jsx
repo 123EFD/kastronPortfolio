@@ -26,15 +26,15 @@ const projects = [
         title: "Booklonian",
         description: "Booklonian is an AI-powered learning assistant that allows users to create personalized AI companions for focused, subject-specific discussions. ",
         image: "/projects/project3.png",
-        tags: ["Next.js", "React", "Clerk","Xano","Supabase","Tailwind CSS"],
+        tags: ["Next.js", "React", "Clerk","Xano","Supabase","Tailwind CSS","Vapi"],
         demoUrl: "https://saas-pi-inky-49.vercel.app/",
         githubUrl: "https://github.com/123EFD/saas-app.git",
     },
 
     {
         id: 4,
-        title: "Student Performance Predictor with PDF AI Analysis",
-        description: "This project is a student performance predictor that utilizes PDF AI analysis to extract relevant information from student records and predict their academic performance with resources suggestion and PDF Analysis for detailed insights.",
+        title: "Student Performance Predictor with PDF AI Analysis (Still in development)",
+        description: "Student performance predictor that utilizes PDF AI analysis to extract relevant information from student records and predict their academic performance with resources suggestion and PDF Analysis for detailed insights.",
         image: "/projects/project4.png",
         tags: ["Python", "Flutter", "FastApi","HuggingFace","Groq"],
         demoUrl: "https://recommender-api-ten.vercel.app/",
