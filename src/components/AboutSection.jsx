@@ -17,14 +17,12 @@ export const AboutSection = () => {
 
 
                         <p className="text-lg md:text-xl text-muted-foreground mt-6">
-                            Hello! I'm Kastron, a passionate web developer with a keen interest in creating
-                            dynamic and responsive web applications. I love exploring new technologies and
-                            pushing the boundaries of what's possible on the web.
+                            Hello! I'm Kas, a passionate Software Engineering student with a keen interest in creating
+                            web applications, small games and exploring frameworks that's new to me during my free time.  
                         </p>
 
                         <p className="flex flex-col sm:flex-row gap-4 pt-4 justify-center text-lg md:text-xl text-muted-foreground mt-4">
-                            This portfolio is a showcase of my skills and projects. Feel free to explore and
-                            connect with me if you have any questions or opportunities!
+                            This portfolio is a showcase of my skills and side projects. I'll keep updating irregularly with new side projects and improving my portfolio website including building blog section since I think this will be another way to always keep track what I have learnt and experienced :)
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center mt-8">

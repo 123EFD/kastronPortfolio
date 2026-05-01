@@ -12,9 +12,7 @@ export const HeroSection = () => {
                         <span className="text-primary opacity-0 animate-fade-in-delay-1">
                             kas
                         </span>
-                        <span className="text-gradient ml-2 opacity-0 animate-fade-in-delay-2">
-                            tron
-                        </span>
+
                     </h1>
                     <p className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3">
                         Just a testing website to showcase my skills in web development.I will update it
