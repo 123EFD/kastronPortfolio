@@ -1,6 +1,10 @@
+---
+description: Notion-like editor with live preview
+---
+
 # Overview
 
-## Portfolio- blog website.
+## Portfolio- blog website
 
 #### 🛠️ Recommended Tech Stack
 
@@ -37,7 +41,7 @@ Unified.js is the core engine, but it uses different vocabularies depending on w
 
 * **Remark (mdast):** This ecosystem deals strictly with **Markdown**. It parses markdown strings into a Markdown AST (`mdast`).
 * **Rehype (hast):** This ecosystem deals strictly with **HTML**. It transforms an HTML AST (`hast`) into an actual HTML string.
-* **The Bridge (`remark-rehype`):** You must understand that the pipeline goes: Text $\rightarrow$ Remark (mdast) $\rightarrow$ `remark-rehype` (Bridge) $\rightarrow$ Rehype (hast) $\rightarrow$ HTML. Your custom markdown directives must be processed _before_ or _during_ the bridge phase.
+* **The Bridge (`remark-rehype`):** You must understand that the pipeline goes: Text -> Remark (mdast) ->  `remark-rehype` (Bridge) -> Rehype (hast) -> HTML. Your custom markdown directives must be processed _before_ or _during_ the bridge phase.
 
 #### 3. AST Manipulation (`unist-util-visit`)
 
