@@ -38,7 +38,7 @@ const processor = unified()
 ### **Setup**
 
 ```jsx
-/import { unified } from "unified"
+import { unified } from "unified"
 import remarkParse from "remark-parse"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkParseFrontmatter from "remark-parse-frontmatter"

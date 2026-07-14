@@ -33,7 +33,7 @@ Tool: nextjs-mdx-remote package ; date-fns package
 
 * **nextjs-mdx-remote**: library that **enables rendering of MDX (Markdown and JSX) content** in Next.js applications. It allows you to **fetch and render MDX files** on both the server and client sides, making it suitable for <mark style="color:$primary;">building blogs and documentation websites</mark>.
 * **gray-matter**: JavaScript library used for **parsing and extracting metadata from Markdown files**. It allows you to <mark style="color:pink;">**access front-matter data (metadata) in your Markdown files**</mark>, such as titles, dates, or custom fields. It simplifies working with Markdown files that contain additional structured data.
-* **date-fns**: dlightweight JavaScript library for working with dates. It provides various utility functions for **parsing, formatting, manipulating, and comparing dates**. In the context of a blog, date-fns can be used to format dates from metadata in a human-readable format, handle time zones, calculate time differences, and perform other date-related operations.<br>
+* **date-fns**: lightweight JavaScript library for working with dates. It provides various utility functions for **parsing, formatting, manipulating, and comparing dates**. In the context of a blog, date-fns can be used to format dates from metadata in a human-readable format, handle time zones, calculate time differences, and perform other date-related operations.<br>
 
 #### The setup
 

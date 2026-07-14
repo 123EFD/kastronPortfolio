@@ -10,7 +10,7 @@ It supports three syntax variations:&#x20;
 2. **Leaf Directives (Single element block):** `::name[content]{key="value"}`
 3. **Container Directives (Wrapping blocks):**&#x20;
 
-:::name{.className} This is a container for **any** markdown content. :::
+`:::name{.className} This is a container for`` `**`any`**` ``markdown content. :::`
 
 ### Example
 
