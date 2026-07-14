@@ -24,6 +24,8 @@
 
 * \[ ] **Initialize Milkdown:** Set up the React component for the Milkdown editor with the GFM (GitHub Flavored Markdown) preset.
 * \[ ] **Draft Management:** Use `@milkdown/plugin-listener`. On every document change, save the raw Markdown string to `localStorage`. On editor load, check `localStorage` and prompt the user: "Restore unsaved draft?"
+* When a user clicks "Edit" on the Dashboard, you need to pass the raw text you fetched in Phase 3 _into_ the Milkdown editor so it populates with the existing post content.
+* Write a GitHub API `PUT` request that takes the final Markdown string from Milkdown and commits it to your `src/content/blog` folder to officially publish or update the post.
 * \[ ] **GitHub Image Uploader:** Write a custom Milkdown image upload plugin. When an image is dropped/pasted:
   1. Convert it to Base64.
   2. Use `Octokit` to push it to a `public/blog-images` folder in your GitHub repo.
