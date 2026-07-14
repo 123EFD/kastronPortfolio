@@ -12,7 +12,7 @@ export const Admin = ({children}) => {
             const { data: {session} } = await supabase.auth.getSession();
             if (session) {
                 const githubUsername = session.user.user_metadata.user_name;
-                const adminUsername = import.meta.env.VITE_ADMIN_USERNAME;
+                const adminUsername = import.meta.env.VITE_ADMIN_GITHUB_USERNAME;
                 const isOwner = githubUsername?.toLowerCase() === adminUsername?.toLowerCase();
                 setIsAuthorized(isOwner);
             }

@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabaseClient';
 export const Login = () => {
     const handleLogin = async () => {
         try {
-            const redirectUrl = `${window.location.origin}/admin/`;
+            const redirectUrl = `${window.location.origin}/admin`;
             await supabase.auth.signInWithOAuth({
                 provider: 'github',
                 options:{
