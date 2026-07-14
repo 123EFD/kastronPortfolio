@@ -19,14 +19,11 @@ export const Home = () => {
     {/* Background Effects */}
     <StarBackground />
 
-    {/* Navbar */}
-    <Navbar />
-
     {/* Main content */}
     <main>
         <HeroSection />
         <AboutSection />
-        <SkillsSection />
+        {/*<SkillsSection />*/}
         <ProjectsSection />
         <ContactSection />
     </main>
