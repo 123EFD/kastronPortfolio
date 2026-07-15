@@ -11,6 +11,10 @@
 * [Introduction to JSON Web Tokens](oauth/introduction-to-json-web-tokens.md)
 * [GitHub OAuth](oauth/github-oauth.md)
 
+***
+
+* [useEditor](useeditor.md)
+
 ## Markdown Doc
 
 * [Markdown Basic](markdown-doc/markdown-basic.md)
