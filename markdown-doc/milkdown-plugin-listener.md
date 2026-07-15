@@ -40,6 +40,10 @@ Editor.make()
 
 #### **class ListenerManager (provide methods to subscribe to events)**
 
+{% content-ref url="milkdown-plugin-listener.md" %}
+[milkdown-plugin-listener.md](milkdown-plugin-listener.md)
+{% endcontent-ref %}
+
 *
   * **`listeners`**`: Subscribers`\
     <mark style="color:$primary;">**A getter to get all subscribers**</mark>. You should not use this method directly.

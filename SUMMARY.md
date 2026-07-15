@@ -4,7 +4,6 @@
 * [To-do list](to-do-list.md)
 * [React Route-Dom](react-route-dom.md)
 * [GitHub REST API endpoints for repository contents](github-rest-api-endpoints-for-repository-contents.md)
-* [@milkdown/plugin-listener](milkdown-plugin-listener.md)
 
 ## OAUth
 
@@ -21,3 +20,5 @@
 * [Tree-walking with remark directive implementation](markdown-doc/tree-walking-with-remark-directive-implementation.md)
 * [React Markdown with Practical Examples](markdown-doc/react-markdown-with-practical-examples.md)
 * [TailwindCSS in markdown](markdown-doc/tailwindcss-in-markdown.md)
+* [@milkdown/plugin-listener](markdown-doc/milkdown-plugin-listener.md)
+* [FileReader: readAsDataURL() method](markdown-doc/filereader-readasdataurl-method.md)
