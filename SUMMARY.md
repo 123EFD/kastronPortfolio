@@ -13,10 +13,11 @@
 
 ***
 
-* [useEditor](useeditor.md)
+* [Milkdown Internal Data Structure](milkdown-internal-data-structure.md)
 
 ## Markdown Doc
 
+* [useEditor](markdown-doc/useeditor.md)
 * [Markdown Basic](markdown-doc/markdown-basic.md)
 * [Unified, Remark, and Rehype to Build a Perfect Markdown Processor](markdown-doc/unified-remark-and-rehype-to-build-a-perfect-markdown-processor.md)
 * [ASTs, Markdown and MDX](markdown-doc/asts-markdown-and-mdx.md)
