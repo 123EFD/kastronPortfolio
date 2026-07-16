@@ -6,6 +6,14 @@ description: >-
 
 # State and CRUD
 
+#### Reference:
+
+{% embed url="https://react.dev/learn/sharing-state-between-components" %}
+
+{% embed url="https://react.dev/learn/state-as-a-snapshot" %}
+
+{% embed url="https://react.dev/learn/responding-to-events" %}
+
 #### State Hydration and the Active Record Pattern
 
 | **Function**     | **Concept**                                                                                                                                                                                                                                                                       | **Real-World Analogy**                                                                                                                      |
@@ -69,3 +77,4 @@ Content-Location: /new.html
 HTTP/1.1 204 No Content or 200 OK
 Content-Location: /existing.html
 ```
+

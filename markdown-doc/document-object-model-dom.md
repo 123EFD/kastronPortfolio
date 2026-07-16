@@ -4,8 +4,6 @@ Reference:
 
 {% embed url="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model" %}
 
-{% embed url="https://prosemirror.net/docs/guide/" %}
-
 * connects web pages to scripts or programming languages by representing the structure of a document
 * e.g. : HTML represent as web page in memory / Javascript (most common)
 * represents a document with a logical tree

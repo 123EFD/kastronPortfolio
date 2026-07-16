@@ -1,5 +1,9 @@
 # Asset pipeline for image upload
 
+#### Reference:
+
+{% embed url="https://prosemirror.net/docs/guide/" %}
+
 \[User drops image] ──> \[Upload Plugin Intercepts] ──> \[FileReader converts to Base64]\
 \
 \[Editor renders image] <── \[Insert raw.githubusercontent URL] <── \[GitHub API PUT Upload]
@@ -42,4 +46,3 @@
 * `@milkdown/plugin-upload`  ： utilizes upload configuration callback spec that acts as an observer that <mark style="color:$primary;">**listens to specific browser input nodes**</mark>
   * handles the raw file array
   * provides a hook to map those files to schema mutations.
-*
