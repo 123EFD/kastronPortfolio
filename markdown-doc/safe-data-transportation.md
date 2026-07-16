@@ -1,5 +1,17 @@
 # Safe Data Transportation
 
+#### Reference:
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/unescape" %}
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Web/API/FileReader" %}
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Web/API/Window/btoa" %}
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" %}
+
+{% embed url="https://developer.mozilla.org/en-US/docs/Web/API/FileReader/error_event" %}
+
 * raw binary data (like the pixels of an image) or complex Unicode characters (like emojis or Chinese characters) can get mangled or break the JSON structure when sending to an API&#x20;
 * Base64 encoding solves this by translating that messy data into a universally safe alphabet of 64 standard characters (A-Z, a-z, 0-9, +, and /).
 

@@ -25,3 +25,4 @@
 * [FileReader: readAsDataURL() method](markdown-doc/filereader-readasdataurl-method.md)
 * [Milkdown Internal Data Structure](markdown-doc/milkdown-internal-data-structure.md)
 * [Safe Data Transportation](markdown-doc/safe-data-transportation.md)
+* [State and CRUD](markdown-doc/state-and-crud.md)
