@@ -26,3 +26,5 @@
 * [Milkdown Internal Data Structure](markdown-doc/milkdown-internal-data-structure.md)
 * [Safe Data Transportation](markdown-doc/safe-data-transportation.md)
 * [State and CRUD](markdown-doc/state-and-crud.md)
+* [Asset pipeline for image upload](markdown-doc/asset-pipeline-for-image-upload.md)
+* [Document Object Model (DOM)](markdown-doc/document-object-model-dom.md)
