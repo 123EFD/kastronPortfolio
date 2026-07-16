@@ -4,6 +4,8 @@
 
 {% embed url="https://prosemirror.net/docs/guide/" %}
 
+{% embed url="https://milkdown.dev/docs/api/plugin-upload" %}
+
 \[User drops image] ──> \[Upload Plugin Intercepts] ──> \[FileReader converts to Base64]\
 \
 \[Editor renders image] <── \[Insert raw.githubusercontent URL] <── \[GitHub API PUT Upload]
