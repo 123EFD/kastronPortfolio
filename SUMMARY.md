@@ -11,10 +11,6 @@
 * [Introduction to JSON Web Tokens](oauth/introduction-to-json-web-tokens.md)
 * [GitHub OAuth](oauth/github-oauth.md)
 
-***
-
-* [Milkdown Internal Data Structure](milkdown-internal-data-structure.md)
-
 ## Markdown Doc
 
 * [useEditor](markdown-doc/useeditor.md)
@@ -27,3 +23,5 @@
 * [TailwindCSS in markdown](markdown-doc/tailwindcss-in-markdown.md)
 * [@milkdown/plugin-listener](markdown-doc/milkdown-plugin-listener.md)
 * [FileReader: readAsDataURL() method](markdown-doc/filereader-readasdataurl-method.md)
+* [Milkdown Internal Data Structure](markdown-doc/milkdown-internal-data-structure.md)
+* [Safe Data Transportation](markdown-doc/safe-data-transportation.md)
