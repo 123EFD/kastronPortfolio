@@ -10,6 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@milkdown/core": "^7.21.3",
+    "@milkdown/plugin-listener": "^7.21.3",
+    "@milkdown/plugin-upload": "^7.21.3",
+    "@milkdown/preset-commonmark": "^7.21.3",
+    "@milkdown/preset-gfm": "^7.21.3",
+    "@milkdown/react": "^7.21.3",
+    "@milkdown/theme-nord": "^7.21.3",
     "@radix-ui/react-toast": "^1.2.14",
     "@supabase/supabase-js": "^2.110.3",
     "@tailwindcss/postcss": "^4.1.10",
@@ -19,6 +26,8 @@
     "katex": "^0.17.0",
     "lucide-react": "^0.514.0",
     "postcss": "^8.5.5",
+    "prosemirror-state": "^1.4.4",
+    "prosemirror-view": "^1.42.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2",
