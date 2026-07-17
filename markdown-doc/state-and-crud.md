@@ -78,3 +78,13 @@ HTTP/1.1 204 No Content or 200 OK
 Content-Location: /existing.html
 ```
 
+***
+
+### State Management & "Token not found after page refresh"
+
+* Stale State Race Condition :&#x20;
+  * React’s `setState` is asynchronous
+  * When the component first mounted, it asked for `githubToken`, which was still `null` because React hadn't finished updating it yet.
+  * Solution : decoupled the initial fetch request from the React state using local variable for immediate API call instead of using state value
+* Prob. : Refreshing the page (`F5`) or triggering Vite's Hot-Reload wiped out the temporary GitHub token from Supabase's session , breaking the API connection.
+  * Solution : implemented a `sessionStorage` fallback to lock into the browser's session memory, allowing it to survive page reloads and hot-swaps.

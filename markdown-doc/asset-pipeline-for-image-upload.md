@@ -48,3 +48,15 @@
 * `@milkdown/plugin-upload`  ： utilizes upload configuration callback spec that acts as an observer that <mark style="color:$primary;">**listens to specific browser input nodes**</mark>
   * handles the raw file array
   * provides a hook to map those files to schema mutations.
+
+***
+
+### The GitHub Display Issue (Invisible Image)
+
+* Prob. : successfully dropped an image into the editor, but when published to GitHub, the preview was completely blank.
+* Cause : Milkdown’s <mark style="color:$primary;">**default behavior**</mark> (when a custom upload plugin fails or isn't detected) is to convert the image <mark style="color:$info;">**into a massive Base64 text string**</mark> and <mark style="color:$info;">**embed it directly into the Markdown**</mark>
+* GitHub aggressively <mark style="color:$danger;">**blocks and hides Base64 image strings**</mark> in Markdown previews to **prevent security vulnerabilities (XSS attacks).**
+* **Solution :** ensured the custom `uploadPlugin` intercepted the file _before_ Milkdown could convert it
+  * <mark style="color:$primary;">**uploading the binary file**</mark> directly to a `src/assets/` folder via the API
+  * returning a clean `raw.githubusercontent` URL
+
