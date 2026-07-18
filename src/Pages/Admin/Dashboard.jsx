@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { uploadFile } from '../../lib/githubUploader';
 import { MilkdownProvider } from '@milkdown/react';
 import { MilkdownEditor } from '../../components/Editor/MilkdownEditor';
+import matter from 'gray-matter';
 
 export const Dashboard = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ export const Dashboard = () => {
     const [editContent, setEditorContent] = useState('');
     const [isFetchingFile, setIsFetchingFile] = useState(false);
     const [githubToken, setGithubToken] = useState(() => sessionStorage.getItem('github_token') || null);
+    const [frontmatter, setFrontmatter] = useState({});
 
     useEffect(() => {
         const fetchGithubPosts = async () => {
@@ -45,7 +47,7 @@ export const Dashboard = () => {
                 //write fetch() request, include authorization header and github api accept header
                 const response = await fetch(url, {
                     headers: {
-                        Authorization: `Bearer ${githubToken}`,
+                        Authorization: `Bearer ${token}`,
                         Accept: 'application/vnd.github.raw+json'
                     }
                 });
@@ -108,7 +110,15 @@ export const Dashboard = () => {
             }
 
             const rawText = await response.text();
-            setEditorContent(rawText);
+
+            //use gray-matter to parse the rawText into an object with the YAML obj. & markdown body
+            const parsedDocument = matter(rawText);
+
+            //store the YAML data 
+            setFrontmatter(parsedDocument.data);
+
+            //pass only the mardown body into editor
+            setEditorContent(parsedDocument.content);
         } catch (error) {
             console.error('Error fetching file content:', error);
         } finally {
@@ -129,12 +139,15 @@ export const Dashboard = () => {
 
             if (!githubToken) throw new Error("No GitHub token found.");
 
+            //merge the text and the YAML object back into a single string.
+            const result = matter.stringify(latestContent, frontmatter);
+
             // Construct the destination path
             const path = `src/content/blog/${currentFile.name}`;
 
             //publish to GitHub using utility function
             const updatedFile = currentFile.sha.startsWith('new-draft-') ? null : currentFile.sha;
-            await uploadFile(latestContent, path, githubToken, updatedFile);
+            await uploadFile(result, path, githubToken, updatedFile);
             alert('Post published successfully!');
 
             // Clear the draft from localStorage after successful publish
@@ -176,7 +189,7 @@ export const Dashboard = () => {
                         <ul className="space-y-3">
                             {posts.map((post) => (
                                 <li
-                                    key={post.sha}
+                                    key={post.name}
                                     className="flex justify-between items-center p-3 border border-border rounded-md hover:bg-muted/50 transition-colors"
                                 >
                                     {/* Clean up the display name by stripping the .md extension */}

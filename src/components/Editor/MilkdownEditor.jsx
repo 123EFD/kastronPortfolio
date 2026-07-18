@@ -1,6 +1,6 @@
 //mount the editor load initial text, and listen for changes to save drafts
 import React, { useEffect , useState } from 'react';
-import { Editor, rootCtx, defaultValueCtx } from '@milkdown/core';
+import { Editor, rootCtx, defaultValueCtx, remarkPluginsCtx } from '@milkdown/core';
 import { Milkdown, useEditor } from '@milkdown/react';
 import { commonmark } from '@milkdown/preset-commonmark';
 import { gfm } from '@milkdown/preset-gfm';
@@ -8,6 +8,10 @@ import { nord } from '@milkdown/theme-nord';
 import { listener, listenerCtx } from '@milkdown/plugin-listener';
 import { uploadPlugin } from './uploadPlugin';
 import { upload, uploadConfig } from '@milkdown/plugin-upload';
+import { infoBoxPlugin } from './infoBoxPlugin';
+import directive from 'remark-directive';
+import 'prosemirror-view/style/prosemirror.css';
+import '@milkdown/theme-nord/style.css';
 
 export const MilkdownEditor = ({initialText, file, githubToken }) => {
     const [resolvedContent, setResolvedContent] = useState(null); //hold the latest test that need to load
@@ -44,15 +48,19 @@ export const MilkdownEditor = ({initialText, file, githubToken }) => {
                     localStorage.setItem(`draft-${file.sha}`, markdown);
                 });
                 
-                ctx.set(uploadConfig.key, {
+                ctx.update(uploadConfig.key, (prevConfig) => ({
+                    ...prevConfig,
                     uploader : uploadPlugin(githubToken),
-                })
+                }));
+
+                ctx.update(remarkPluginsCtx, (prev) => [...prev, directive]);
             })
             .use(commonmark)
             .use(gfm)
             .use(nord)
             .use(listener)
-            .use(upload);
+            .use(upload)
+            .use(infoBoxPlugin);
     }, [resolvedContent, file.sha, githubToken]);
 
     if (resolvedContent === null) {

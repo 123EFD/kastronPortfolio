@@ -3,6 +3,7 @@ import { uploadFile } from '../../lib/githubUploader';
 
 export const uploadPlugin = (githubToken) => {
     return async (files, schema) => {
+        console.log("🚨 CUSTOM UPLOAD PLUGIN INTERCEPTED THE DROP!", files);
         const images = [];
 
         for (const file of files) {
@@ -14,7 +15,7 @@ export const uploadPlugin = (githubToken) => {
 
             try {
                 //define where the image should live inside repo
-                const uniqueName = `${Date.now()}-${file.name}`;
+                const uniqueName = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
                 const path = `src/assets/blog-images/${uniqueName}`;
 
                 //call uploadFile function
