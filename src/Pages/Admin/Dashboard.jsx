@@ -117,8 +117,11 @@ export const Dashboard = () => {
             //store the YAML data 
             setFrontmatter(parsedDocument.data);
 
+            //convert github's html back into editor shortcuts
+            let markdownBody = parsedDocument.content;
+
             //pass only the mardown body into editor
-            setEditorContent(parsedDocument.content);
+            setEditorContent(markdownBody);
         } catch (error) {
             console.error('Error fetching file content:', error);
         } finally {

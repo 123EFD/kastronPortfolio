@@ -40,7 +40,7 @@
     text-indent: -1.5rem;
 }
 
-//inline code 
+/*inline code*/ 
 .milkdown-container code {
     color: #e5e7eb !important; /* Light gray text */
     background-color: #374151 !important; /* Dark gray background */
