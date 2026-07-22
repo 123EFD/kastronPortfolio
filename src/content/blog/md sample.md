@@ -1,10 +1,8 @@
 ***
 
-\--- title: "Mastering the Art of Modern Web Performance" date: 2026-07-22 ... ---
+  title: "Mastering the Art of Modern Web Performance" 
 
-title: "Mastering the Art of Modern Web Performance"
-
-date: 2026-07-22
+date: 2026-07-22 
 
 author: "Alex Rivera"
 
@@ -14,7 +12,7 @@ excerpt: "Discover the core strategies to optimize your website loading speeds a
 
 layout: "post"
 
-\---
+***
 
 # Mastering the Art of Modern Web Performance
 
