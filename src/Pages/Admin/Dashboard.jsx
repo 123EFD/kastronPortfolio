@@ -18,6 +18,7 @@ export const Dashboard = () => {
     const [isFetchingFile, setIsFetchingFile] = useState(false);
     const [githubToken, setGithubToken] = useState(() => sessionStorage.getItem('github_token') || null);
     const [frontmatter, setFrontmatter] = useState({});
+    const [selectedFiles, setSelectedFiles] = useState([]); 
 
     useEffect(() => {
         const fetchGithubPosts = async () => {
@@ -27,9 +28,13 @@ export const Dashboard = () => {
 
                 //extract the Github provider from session obj
                 const token = session?.provider_token || sessionStorage.getItem('github_token');
+
                 if (!token) {
+                    console.warn("No GitHub token found. Redirecting to login...");
                     sessionStorage.removeItem('github_token');
-                    throw new Error("GitHub token not found in session or localStorage.");
+                    await supabase.auth.signOut();
+                    navigate('/');
+                    return;
                 }
 
                 //set the token into state 
@@ -67,28 +72,39 @@ export const Dashboard = () => {
                 setPosts(mdFiles);
             } catch (error) {
                 console.error('Error fetching posts from GitHub:', error);
+                setPosts([]); //leave the post empty so that dashboard wont crash
             } finally {
                 setIsLoading(false);
             }
         };
         fetchGithubPosts();
-    }, []);
+    }, [navigate]);
 
     const handleLogout = async () => {
         try {
-            sessionStorage.removeItem('github_token');
+            sessionStorage.clear();
+            localStorage.clear();
+      
             await supabase.auth.signOut();
-            navigate('/');
+            window.location.href = '/'; // Redirect to the homepage after logout
         } catch (error) {
             console.error('Error during logout:', error);
+            window.location.href = '/'; // Redirect to the homepage even if there's an error
         }
     };
 
     const handleNewPost = () => {
+        const uniqueTime = Date.now();
         setCurrentFile({
-            name: `untitled-${Date.now()}.md`,
-            sha: `new-draft-${Date.now()}`, //unique key for localStorage
+            name: `untitled-${uniqueTime}.md`,
+            sha: `new-draft-${uniqueTime}`, //unique key for localStorage
         });
+
+        setFrontmatter({
+            title: `Draft: ${uniqueTime}`, 
+            date: new Date().toISOString().split('T')[0], 
+            description: "A quick description..."
+        })
         setEditorContent('# New Blog Post\n\nStart writing here...');
     };
 
@@ -161,8 +177,143 @@ export const Dashboard = () => {
         }
     }
 
+    const handleDeletePost = async (fileToDelete) => {
+        const confirmDelete = window.confirm(`Are you sure you want to delete "${fileToDelete.name}"? This action cannot be undone.`);
+        if (!confirmDelete) return;
+
+        //handle local drafts 
+        if (!fileToDelete.sha.startsWith('new-draft-')) {
+            setPosts((prev) => prev.filter(p => p.sha !== fileToDelete.sha));
+            localStorage.removeItem(`draft-${fileToDelete.sha}`);
+            if (currentFile?.sha === fileToDelete.sha) setCurrentFile(null);
+            return;
+        }
+
+        //handle published github files
+        try {
+            const owner = import.meta.env.VITE_ADMIN_GITHUB_USERNAME;
+            const repo = 'kastronPortfolio';
+            const path = `src/content/blog/${fileToDelete.name}`;
+            const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            const response = await fetch(url, {
+                method : 'DELETE',
+                headers : {
+                    Authorization : `Bearer ${githubToken}`,
+                    Accept: 'application/vnd.github.raw+json',
+                },
+                body : JSON.stringify({
+                    message: `Delete post : ${fileToDelete.name}`,
+                    sha : fileToDelete.sha,
+                })
+            });
+
+            if (!response.ok) throw new Error(`Failed to delete file: ${response.statusText}`);
+
+            //cleaup state and local storage
+            setPosts((prev) => prev.filter(p => p.sha !== fileToDelete.sha));
+            localStorage.removeItem(`draft-${fileToDelete.sha}`);
+
+            //close editor if deleted file is currently open
+            if (currentFile?.sha === fileToDelete.sha) setCurrentFile(null);
+
+            alert(`Post "${fileToDelete.name}" deleted successfully!`);
+        } catch (error) {
+            console.error('Error deleting post:', error);
+            alert('Failed to delete post. Please try again.');
+        }
+    };
+
+    //toggle a single checkbox
+    const toggleSelection = (sha) => {
+        setSelectedFiles((prev) => 
+            prev.includes(sha) ? prev.filter(id => id !== sha) : [...prev, sha]
+        );
+    };
+
+    //select / deselect all
+    const toggleSelectAll = () => {
+        if (selectedFiles.length === posts.length) {
+            setSelectedFiles([]); //deselect all
+        } else {
+            setSelectedFiles(posts.map(post => post.sha)); // select all
+        }
+    };
+
+    //bulk delete logic
+    const handleBulkDelete = async () => {
+        if (selectedFiles.length === 0) return;
+
+        const confirmedDelete = window.confirm(`Are you sure you want to delete ${selectedFiles.length} selected post(s)? This action cannot be undone.`);
+        if (!confirmedDelete) return;
+
+        //get actual file obj. based on the selected SHAs
+        const filesToDelete = posts.filter(post => selectedFiles.includes(post.sha));
+
+        //avoid promise.all to prevent hitting github rate limit, delete one by one
+        for (const file of filesToDelete) {
+            if (file.sha.startsWith('new-draft-')){
+                //delete local draft 
+                localStorage.removeItem(`draft-${file.sha}`);
+            } else {
+                try {
+                    const owner = import.meta.env.VITE_ADMIN_GITHUB_USERNAME; 
+                    const repo = 'kastronPortfolio';
+                    const path = `src/content/blog/${file.name}`;
+                    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+                    await fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            Authorization: `Bearer ${githubToken}`,
+                            Accept: 'application/vnd.github.v3+json',
+                        },
+                        body: JSON.stringify({
+                            message: `Bulk delete post: ${file.name}`,
+                            sha: file.sha
+                        })
+                    });
+                    localStorage.removeItem(`draft-${file.sha}`);
+                } catch (error) {
+                    console.error('Error deleting file:', error);
+                }
+            }
+
+            //if user deleted the file they're currently editing, close the editor
+            if (currentFile?.sha === file.sha) {
+                setCurrentFile(null);
+                setEditorContent('');
+            }
+        }
+        //update the UI by filtering out  all deleted files
+        setPosts((prev) => prev.filter(post => !selectedFiles.includes(post.sha)));
+        setSelectedFiles([]); //clear selection after deletion
+        alert(`${filesToDelete.length} post(s) deleted successfully!`);
+    };
+
+    const handleRenamePost = async (fileToRename) => {
+        const newName = window.prompt("Enter new file name (must end in .md): ", fileToRename.name);
+
+        if (!newName || newName === fileToRename.name) return;
+
+        if (!newName.endsWith('.md')) {
+            alert("File name must end with .md");
+            return;
+    }
+
+    //handle local drafts by updating React state
+    if (fileToRename.sha.startsWith('new-draft-')) {
+        setCurrentFile(prev => ({ ...prev, name: newName }));
+        return;
+    }
+
+    //handle published github files
+    alert("To rename a published file, update the title here, hit 'Publish to GitHub' to create the new file, and then delete the old file.");
+    setCurrentFile(prev => ({ ...prev, name: newName, isRenaming: true }));
+    };
+
     return (
-        <div className="container mx-auto max-w-5xl py-24 px-4">
+        <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-blue-100 dark:from-slate-900 dark:via-purple-950 dark:to-slate-900 transition-colors duration-500">
             <div className="flex justify-between items-center mb-12">
                 <h1 className="text-4xl font-bold text-primary">Creator Dashboard</h1>
                 <button
@@ -175,7 +326,7 @@ export const Dashboard = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Sidebar for Drafts / Published Lists */}
-                <div className="col-span-1 bg-card border border-border rounded-lg p-6">
+                <div className="col-span-1 p-6 rounded-2xl shadow-xl border border-white/20 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-md">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-semibold">Your Posts</h2>
                         <button 
@@ -186,26 +337,85 @@ export const Dashboard = () => {
                         </button>
                     </div>
 
+                    {/* Bulk Actions Toolbar (Only shows if there are posts) */}
+                    {posts.length > 0 && (
+                        <div className="flex justify-between items-center mb-4 p-2 bg-white/50 dark:bg-black/30 rounded-lg border border-white/20 dark:border-white/5">
+                            <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+                                <input 
+                                    type="checkbox" 
+                                    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                                    checked={selectedFiles.length === posts.length && posts.length > 0}
+                                    onChange={toggleSelectAll}
+                                />
+                                Select All
+                            </label>
+                            
+                            {selectedFiles.length > 0 && (
+                                <button 
+                                    onClick={handleBulkDelete}
+                                    className="text-xs font-semibold px-3 py-1 bg-red-500/10 text-red-600 hover:bg-red-500/20 rounded-md transition-colors"
+                                >
+                                    Delete Selected ({selectedFiles.length})
+                                </button>
+                            )}
+                        </div>
+                    )}
+
                     {isLoading ? (
                         <p className="text-sm text-muted-foreground">Loading repository files...</p>
                     ) : (
-                        <ul className="space-y-3">
+                        <ul className="space-y-2 overflow-y-auto flex-1 pr-1 custom-scrollbar">
                             {posts.map((post) => (
                                 <li
                                     key={post.name}
-                                    className="flex justify-between items-center p-3 border border-border rounded-md hover:bg-muted/50 transition-colors"
+                                    className={`flex items-center justify-between p-3 border rounded-xl transition-all shadow-sm group
+                                        ${currentFile?.sha === post.sha 
+                                            ? 'bg-blue-50/80 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800' 
+                                            : 'bg-white/50 border-white/30 hover:bg-white/80 dark:bg-black/20 dark:border-white/10 dark:hover:bg-black/40'}
+                                    `}
                                 >
-                                    {/* Clean up the display name by stripping the .md extension */}
-                                    <span className="font-medium text-sm text-foreground">
-                                        {post.name.replace('.md', '')}
-                                    </span>
+                                    <div className="flex items-center gap-3 overflow-hidden">
+                                        {/* Checkbox */}
+                                        <input 
+                                            type="checkbox" 
+                                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer flex-shrink-0"
+                                            checked={selectedFiles.includes(post.sha)}
+                                            onChange={() => toggleSelection(post.sha)}
+                                        />
 
-                                    <button 
-                                        onClick={() => handleEditPost(post)}
-                                        className="text-xs text-primary hover:text-primary/80 font-semibold transition-colors"
-                                    >
-                                        Edit
-                                    </button>
+                                        {/* Clean up the display name by stripping the .md extension */}
+                                        <span className="font-medium text-sm text-slate-800 dark:text-slate-200 truncate cursor-pointer" onClick={() => handleEditPost(post)}>
+                                            {post.name.replace('.md', '')}
+                                            {/* Draft Badge */}
+                                            {post.sha.startsWith('new-draft-') && (
+                                                <span className="ml-2 text-[10px] uppercase tracking-wider bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-sm">Draft</span>
+                                            )}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex gap-3">
+                                        <button 
+                                            onClick={() => handleEditPost(post)} 
+                                            className="text-blue-600 dark:text-blue-400 hover:scale-110 transition-transform"
+                                            title="Edit"
+                                        >
+                                            ✏️
+                                        </button>
+                                        <button 
+                                            onClick={() => handleRenamePost(post)} 
+                                            className="text-emerald-600 dark:text-emerald-400 hover:scale-110 transition-transform"
+                                            title="Rename"
+                                        >
+                                            🔄
+                                        </button>
+                                        <button 
+                                            onClick={() => handleDeletePost(post)} 
+                                            className="text-red-500 hover:scale-110 transition-transform"
+                                            title="Delete"
+                                        >
+                                            🗑️
+                                        </button>
+                                    </div>
                                 </li>
                             ))}
 
@@ -244,7 +454,7 @@ export const Dashboard = () => {
                                     <p className="text-muted-foreground animate-pulse">Fetching file from GitHub...</p>
                                 </div>
                             ) : (
-                                <div className="flex-1 overflow-y-auto">
+                                <div className="col-span-1 md:col-span-2 p-6 min-h-[600px] flex flex-col rounded-2xl shadow-xl border border-white/20 dark:border-white/10 bg-white/60 dark:bg-black/60 backdrop-blur-lg">
                                     {/* The MilkdownProvider is MANDATORY to prevent crashes */}
                                     <MilkdownProvider>
                                         <MilkdownEditor

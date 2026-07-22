@@ -16,6 +16,8 @@ import { $mark, $inputRule } from '@milkdown/utils';
 import { InputRule } from '@milkdown/prose/inputrules';
 import remarkSubSuper from 'remark-sub-super';
 import '../Markdown/markdownStyles.css';
+import {math} from '@milkdown/plugin-math';
+import 'katex/dist/katex.min.css';
 
 //color span plugin for syntax highlighting
 const colorSpanPlugin = $mark('colorSpan', () => ({
@@ -194,6 +196,7 @@ export const MilkdownEditor = ({initialText, file, githubToken }) => {
             .use(nord)
             .use(listener)
             .use(upload)
+            .use(math)
             .use(infoBoxPlugin)
             .use(colorSpanPlugin)
             .use(superscriptPlugin)
