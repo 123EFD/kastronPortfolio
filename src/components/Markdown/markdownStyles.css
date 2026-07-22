@@ -3,6 +3,52 @@
     max-width : none; 
 }
 
+/*heading styles*/
+.prose h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.111111;
+    margin-top: 0;
+    margin-bottom: 0.88a9em;
+}
+
+.prose h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.333333;
+    margin-top: 1.333333em;
+    margin-bottom: 0.666667em;
+}
+
+.prose h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-top: 1.6em;
+    margin-bottom: 0.4em;
+}
+
+.prose h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 1.556em;
+    margin-bottom: 0.444em;
+}
+
+.prose h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.prose h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
 /*custom info box*/
 .custom-directive {
     margin-top: 1.5rem;
@@ -40,10 +86,18 @@
     text-indent: -1.5rem;
 }
 
-/*inline code*/ 
-.milkdown-container code {
+/*inline code for BOTH the editor and the public blog*/ 
+.milkdown-container :not(pre) > code,
+.prose :not(pre) > code {
     color: #e5e7eb !important; /* Light gray text */
     background-color: #374151 !important; /* Dark gray background */
     padding: 0.2rem 0.4rem;
     border-radius: 0.25rem;
+}
+
+/* Prevent the syntax highlighter code blocks from inheriting the inline code background */
+.prose pre code {
+    background-color: transparent !important;
+    padding: 0;
+    color: inherit !important;
 }

@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
 import rehypeStringify from 'rehype-stringify';
 import remarkDirective from 'remark-directive';
 import { customDirectives } from './customDirectives';
@@ -10,6 +12,9 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeCitation from 'rehype-citation';
 import './markdownStyles.css'; 
+import rehypeHighLight from 'rehype-highlight';
+import 'highlight.js/styles/github-dark.css';
+import './markdownStyles.css'
 
 export const MarkdownRenderer = ({ markdown }) => {
     const [processContent, setProcessContent] = useState('');
@@ -21,8 +26,11 @@ export const MarkdownRenderer = ({ markdown }) => {
                     .use(remarkParse)
                     .use(remarkDirective)
                     .use(customDirectives)
+                    .use(remarkGfm)
                     .use(remarkMath)
-                    .use(remarkRehype)
+                    .use(remarkRehype, { allowDangerousHtml: true })
+                    .use(rehypeRaw)
+                    .use(rehypeHighLight, {detect :true})
                     .use(rehypeKatex)
                     .use(rehypeCitation)
                     .use(rehypeStringify)
