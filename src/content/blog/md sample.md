@@ -1,5 +1,7 @@
 ***
 
+\--- title: "Mastering the Art of Modern Web Performance" date: 2026-07-22 ... ---
+
 title: "Mastering the Art of Modern Web Performance"
 
 date: 2026-07-22
