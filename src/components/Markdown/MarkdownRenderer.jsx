@@ -25,8 +25,8 @@ export const MarkdownRenderer = ({ markdown }) => {
                 const safeMarkdown = markdown || '';
 
                 const preProcessedMarkdown = safeMarkdown
-                    .replace(/\^([^^]+)\^/g, '<sup>$1</sup>')
-                    .replace(/~([^~]+)~/g, '<sub>$1</sub>');
+                    .replace(/\^([a-zA-Z0-9-]+)\^/g, '<sup>$1</sup>')
+                    .replace(/~([a-zA-Z0-9-]+)~/g, '<sub>$1</sub>');
 
                 const result = await unified()
                     .use(remarkParse)
@@ -37,7 +37,7 @@ export const MarkdownRenderer = ({ markdown }) => {
                     .use(remarkRehype, { allowDangerousHtml: true })
                     .use(rehypeRaw)
                     .use(rehypeHighLight, {detect :true})
-                    .use(rehypeKatex)
+                    .use(rehypeKatex, {strict: false})
                     .use(rehypeCitation)
                     .use(rehypeStringify)
                     .process(preProcessedMarkdown);
