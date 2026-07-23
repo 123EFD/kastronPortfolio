@@ -40,6 +40,7 @@ export function SyntaxHighlightCheck({ slug }) {
 
   return data;
 }
+```
 
 :::info
 Architectural Advisory
