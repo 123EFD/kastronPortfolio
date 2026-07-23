@@ -11,10 +11,10 @@ import { customDirectives } from './customDirectives';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeCitation from 'rehype-citation';
-import './markdownStyles.css'; 
 import rehypeHighLight from 'rehype-highlight';
 import 'highlight.js/styles/github-dark.css';
-import './markdownStyles.css'
+import 'katex/dist/katex.min.css';
+import './markdownStyles.css';
 
 export const MarkdownRenderer = ({ markdown }) => {
     const [processContent, setProcessContent] = useState('');
@@ -22,6 +22,12 @@ export const MarkdownRenderer = ({ markdown }) => {
     useEffect(() => {
         const markdownToHtml = async () => {
             try {
+                const safeMarkdown = markdown || '';
+
+                const preProcessedMarkdown = safeMarkdown
+                    .replace(/\^([^^]+)\^/g, '<sup>$1</sup>')
+                    .replace(/~([^~]+)~/g, '<sub>$1</sub>');
+
                 const result = await unified()
                     .use(remarkParse)
                     .use(remarkDirective)
@@ -34,9 +40,9 @@ export const MarkdownRenderer = ({ markdown }) => {
                     .use(rehypeKatex)
                     .use(rehypeCitation)
                     .use(rehypeStringify)
+                    .process(preProcessedMarkdown);
                     // rehypeCitation requires a valid bibliography file in your public folder to work fully
                     // .use(rehypeCitation, { bibliography: '/references.bib' })
-                    .process(markdown);
                     
                 setProcessContent(result.toString()); //trigger update
             } catch (error) {
@@ -44,7 +50,9 @@ export const MarkdownRenderer = ({ markdown }) => {
             }
         };
 
-        markdownToHtml();
+        if (markdown && typeof markdown === 'string') {
+            markdownToHtml();
+        }
 
     }, [markdown]);
 

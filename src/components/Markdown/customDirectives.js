@@ -13,13 +13,9 @@ export function customDirectives() {
 
                 if (node.type === 'containerDirective') {
                     const directiveName = node.name;
-
-                    //NOTE 1: tell pipeline what HTML tag to generate 
                     data.hName = 'div';
-                    //TailwindCSS / custom styles
                     data.hProperties = {
-                        //TASK : // Add layout classes here
-                        className: `custom-directive box-${directiveName}`,
+                        className: ['custom-directive', `box-${directiveName}`],
                     };
                 }
 
