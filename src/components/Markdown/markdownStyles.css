@@ -101,3 +101,23 @@
     padding: 0;
     color: inherit !important;
 }
+
+/* Optional wrapper styling to make the blog card look like an item frame/box */
+.blog-frame {
+    border: 4px solid #2e2620; /* Wood/Stone border representation */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.paper-texture {
+    background-color: #e3dfba;
+    background-image:  linear-gradient(#c8d6bf 2px, transparent 2px), linear-gradient(90deg, #c8d6bf 2px, transparent 2px), linear-gradient(#c8d6bf 1px, transparent 1px), linear-gradient(90deg, #c8d6bf 1px, #e3dfba 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+.dark .paper-texture {
+    background-color: #161623;
+    background-image:  radial-gradient(circle, #444CF7 0.8px, transparent 0.8px), radial-gradient(circle, #444CF7 0.8px, transparent 0.8px) ;
+    background-size: 5px 20px, 20px 5px;
+    background-position: -2.5px -10px, -10px -2.5px;
+}

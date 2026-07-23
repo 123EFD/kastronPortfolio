@@ -368,10 +368,10 @@ export const Dashboard = () => {
                             {posts.map((post) => (
                                 <li
                                     key={post.name}
-                                    className={`flex items-center justify-between p-3 border rounded-xl transition-all shadow-sm group
+                                    className={`flex items-center justify-between p-3 border rounded-xl transition-all shadow-sm group backdrop-blur-md
                                         ${currentFile?.sha === post.sha 
-                                            ? 'bg-blue-50/80 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800' 
-                                            : 'bg-white/50 border-white/30 hover:bg-white/80 dark:bg-black/20 dark:border-white/10 dark:hover:bg-black/40'}
+                                            ? 'bg-blue-500/20 border-blue-400 dark:bg-blue-900/40 dark:border-blue-700' 
+                                            : 'bg-white/30 border-white/40 hover:bg-white/50 dark:bg-black/30 dark:border-white/10 dark:hover:bg-black/50'}
                                     `}
                                 >
                                     <div className="flex items-center gap-3 overflow-hidden">

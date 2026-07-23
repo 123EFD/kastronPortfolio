@@ -59,8 +59,8 @@ export const BlogPost = () => {
     }
 
     return (
-        <div className="min-h-screen bg-background text-foreground py-24 px-4 transition-colors duration-500 pt-32">
-            <div className="max-w-4xl mx-auto">
+        <div className="min-h-screen paper-texture py-24 px-4 transition-colors duration-500 pt-32">
+            <div className="max-w-4xl mx-auto bg-white/70 dark:bg-black/30 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-white/30 dark:border-white/10">
                 
                 {/* Back Button */}
                 <Link to="/blog" className="text-primary hover:underline mb-8 inline-block">
