@@ -78,6 +78,7 @@ export const BlogIndex = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-blue-100 dark:from-slate-900 dark:via-purple-950 dark:to-slate-900 py-24 px-4 transition-colors duration-500 pt-32">
+      {/* Blog section commented out
       <div className="max-w-5xl mx-auto border border-dashed border-border p-6 rounded-xl bg-background">
         <h1 className="text-xs font-mono px-2 py-1 bg-primary/10 text-primary rounded mb-4 inline-block">
           Engine Sandbox Preview
@@ -86,7 +87,7 @@ export const BlogIndex = () => {
         {isLoading ? ( <p>Loading live posts from GitHub...</p> ) 
         : (
           <>
-            {/* The Glassmorphism Grid */}
+            The Glassmorphism Grid
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
               <Link
@@ -106,7 +107,7 @@ export const BlogIndex = () => {
                   {post.description}
                 </p>
 
-                {/* Tags Section */}
+                Tags Section
                 <div className="flex flex-wrap gap-2 mt-auto">
                   {post.tags.map((tag, index) => (
                     <span key={index} className="px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full">
@@ -126,6 +127,7 @@ export const BlogIndex = () => {
           </div>
         )}
       </div>
+      */}
     </div>
   );
 }

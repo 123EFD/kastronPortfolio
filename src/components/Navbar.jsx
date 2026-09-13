@@ -8,7 +8,12 @@ const navItems = [
     { name: "About", href: "/#about" },
     { name: "Projects", href: "/#projects" },
     { name: "Contact", href: "/#contact" },
-    { name: "Blog", href: "/blog", isRoute: true },
+    { 
+        name: "Blog", 
+        href: "https://food-challenge-jet.vercel.app",
+        target: "_blank",
+        rel: "noopener noreferrer"
+    },
 ];
 
 export const Navbar = () => {
@@ -47,12 +52,18 @@ export const Navbar = () => {
                             <Link
                                 key={key}
                                 to={item.href}
-                                className="text-foreground opcaity-80 hover:text-primary hover:opacity-100 transition-all duration-300 font-medium"
+                                className="text-foreground opacity-80 hover:text-primary hover:opacity-100 transition-all duration-300 font-medium"
                             >
                                 {item.name}
                             </Link>
                         ) : (
-                            <a key={key} href={item.href} className="text-foreground opcaity-80 hover:opacity-100 transition-all duration-300 font-medium">
+                            <a 
+                                key={key} 
+                                href={item.href} 
+                                target={item.target}
+                                rel={item.rel}
+                                className="text-foreground opacity-80 hover:text-primary hover:opacity-100 transition-all duration-300 font-medium"
+                            >
                                 {item.name}
                             </a>
                         )
@@ -91,6 +102,8 @@ export const Navbar = () => {
                                 <a
                                     key={key}
                                     href={item.href}
+                                    target={item.target}
+                                    rel={item.rel}
                                     className="text-foreground opacity-80 hover:text-primary hover:opacity-100 transition-all duration-300 font-medium"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
