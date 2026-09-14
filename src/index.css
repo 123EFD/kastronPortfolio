@@ -1,162 +1,295 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'BlockCraft';
+  src: url('/fonts/BlockCraft.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OrangeKid';
+  src: url('/fonts/OrangeKid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cairopixel';
+  src: url('/fonts/Cairopixel.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --color-border: hsl(var(--border));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
+  --font-blockcraft: 'BlockCraft', 'Silkscreen', monospace;
+  --font-orangekid: 'OrangeKid', 'JetBrains Mono', monospace;
+  --font-pixel: 'BlockCraft', 'OrangeKid', 'Silkscreen', monospace;
+  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
 
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-border: var(--border);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  --color-card: hsl(var(--card));
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
-  --animate-fade-in: fade-in 0.7s ease-out forwards;
-  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
-  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
-  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
-  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
-  --animate-meteor: meteor 5s linear infinite;
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --animate-pulse-subtle: pulse-subtle 3s ease-in-out infinite;
+  --animate-scanline: scanline 8s linear infinite;
+
   @keyframes pulse-subtle {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
   }
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes meteor {
-    0% {
-      transform: rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-500px);
-      opacity: 0;
-    }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(1000%); }
   }
 }
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    /* 8-bit "Bone Time" & "Beach Episode" Palette */
+    --background: #fbf8ee;
+    --foreground: #181226;
+    --card: #ffffff;
+    --card-foreground: #181226;
+    --border: #181226;
 
-    --card: 0 0% 100%;
+    --primary: #f26440;
+    --primary-foreground: #ffffff;
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --secondary: #eadecc;
+    --secondary-foreground: #181226;
 
-    --border: 214 32% 91%;
+    --muted: #ebe5d8;
+    --muted-foreground: #665e77;
+
+    --accent: #0d9488;
+    --accent-foreground: #ffffff;
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    /* 8-bit "Deltarune / 12AM Spooky / 3D" Palette */
+    --background: #0c0a17;
+    --foreground: #f4f3ff;
+    --card: #151129;
+    --card-foreground: #f4f3ff;
+    --border: #383063;
 
-    --card: 222 47% 8%;
+    --primary: #22d3ee;
+    --primary-foreground: #0c0a17;
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --secondary: #1f1a3a;
+    --secondary-foreground: #f4f3ff;
 
-    --border: 217 33% 20%;
+    --muted: #1c1735;
+    --muted-foreground: #9a94bd;
+
+    --accent: #f43f5e;
+    --accent-foreground: #ffffff;
   }
 
   * {
-    @apply border-border;
+    border-color: var(--border);
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
+    font-family: var(--font-mono);
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-mono);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-blockcraft);
+    letter-spacing: 0.04em;
+    text-rendering: optimizeLegibility;
   }
 }
 
-@utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
-
-  @media (width >= 640px) {
-    max-width: 640px;
-  }
-  @media (width >= 768px) {
-    max-width: 768px;
-  }
-  @media (width >= 1024px) {
-    max-width: 1024px;
-  }
-  @media (width >= 1280px) {
-    max-width: 1280px;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
+/* 8-bit Hacker & Gaming Custom Utilities */
+@utility font-pixel {
+  font-family: var(--font-blockcraft);
+  letter-spacing: 0.04em;
 }
 
-@utility text-glow {
-  @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+@utility font-blockcraft {
+  font-family: var(--font-blockcraft);
+  letter-spacing: 0.04em;
 }
 
-@utility card-hover {
-  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
+@utility font-orangekid {
+  font-family: var(--font-orangekid);
+  letter-spacing: 0.03em;
 }
 
-@utility gradient-border {
-  @apply relative rounded-md;
-  background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
-  background-clip: padding-box;
-  border: 1px solid transparent;
+@utility font-mono {
+  font-family: var(--font-mono);
 }
 
-@utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-         hover:scale-105 active:scale-95;
+@utility pixel-box {
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--border);
+  background-color: var(--card);
+  box-shadow: 4px 4px 0px 0px rgba(24, 18, 38, 0.9);
 }
 
-@utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+.dark @utility pixel-box {
+  box-shadow: 4px 4px 0px 0px #000000;
 }
 
-@utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+@utility pixel-box-primary {
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--primary);
+  background-color: var(--card);
+  box-shadow: 4px 4px 0px 0px var(--primary);
 }
 
-#root {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  text-align: center;
+@utility pixel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-orangekid);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.45rem 1.15rem;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--border);
+  background-color: var(--card);
+  color: var(--foreground);
+  box-shadow: 3px 3px 0px 0px var(--border);
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pixel-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px var(--border);
+}
+
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px var(--border);
+}
+
+@utility pixel-btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--border);
+  box-shadow: 3px 3px 0px 0px var(--border);
+}
+
+.pixel-btn-primary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px var(--border);
+}
+
+.pixel-btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px var(--border);
+}
+
+@utility pixel-btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--border);
+  box-shadow: 3px 3px 0px 0px var(--border);
+}
+
+@utility pixel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-blockcraft);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--border);
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  box-shadow: 2px 2px 0px 0px var(--border);
+}
+
+@utility pixel-input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-mono);
+  background-color: var(--background);
+  color: var(--foreground);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--border);
+  box-shadow: 3px 3px 0px 0px var(--border);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.pixel-input:focus {
+  border-color: var(--primary);
+  box-shadow: 3px 3px 0px 0px var(--primary);
+}
+
+/* CRT Scanline & Retro Grid background */
+.retro-grid-bg {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(120, 100, 160, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 100, 160, 0.08) 1px, transparent 1px);
+}
+
+.dark .retro-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(70, 60, 120, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(70, 60, 120, 0.22) 1px, transparent 1px);
+}
+
+.retro-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.05) 50%
+  );
+  background-size: 100% 4px;
+}
+
+.dark .retro-scanlines {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
 }

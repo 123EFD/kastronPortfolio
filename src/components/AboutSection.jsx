@@ -1,88 +1,127 @@
-import { Briefcase, Code, User } from "lucide-react";
+import { Code, Cpu, Layout, FileText, Send } from "lucide-react";
 
 export const AboutSection = () => {
     return (
-        <section id="about" className="py-24 px-24 relative">
-            {" "}
+        <section id="about" className="py-24 px-4 relative">
             <div className="container mx-auto max-w-5xl">
-                <h2 className="text-4xl md:text-4xl font-bold text-center">
-                    About <span className="text-primary">Me</span>
-                </h2>
+                {/* Section Header */}
+                <div className="text-center mb-16">
+                    <div className="pixel-badge mb-3 text-primary">
+                        [ PLAYER_PROFILE // DATA_SHEET ]
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold font-pixel">
+                        ABOUT <span className="text-primary">&lt;ME&gt;</span>
+                    </h2>
+                </div>
 
-                <div className="grid gird-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div className="space-y-6">
-                        <h3 className="text-2xl font-semibold">
-                            My First project
-                        </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    {/* Left Column: Terminal Bio Window */}
+                    <div className="pixel-box">
+                        {/* Retro Window Header */}
+                        <div className="bg-secondary px-4 py-2 border-b-2 border-border flex items-center justify-between">
+                            <span className="font-pixel text-xs text-foreground font-bold flex items-center gap-1.5">
+                                <span className="w-2 h-2 bg-primary inline-block" />
+                                PROFILE_OVERVIEW.DAT
+                            </span>
+                            <div className="flex gap-1.5 font-mono text-xs text-muted-foreground select-none">
+                                <span>_</span>
+                                <span>□</span>
+                                <span>×</span>
+                            </div>
+                        </div>
 
+                        <div className="p-6 space-y-5 text-left font-mono">
+                            <h3 className="text-xl font-bold font-pixel text-foreground">
+                                KAS // SOFTWARE ENGINEER
+                            </h3>
 
-                        <p className="text-lg md:text-xl text-muted-foreground mt-6">
-                            Hello! I'm Kas, a passionate Software Engineering student with a keen interest in creating
-                            web applications, small games and exploring frameworks that's new to me during my free time.  
-                        </p>
+                            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                                Hello! I'm Kas, a Software Engineering student passionate about building performant 
+                                web applications, game systems, and exploring modern frameworks.
+                            </p>
 
-                        <p className="flex flex-col sm:flex-row gap-4 pt-4 justify-center text-lg md:text-xl text-muted-foreground mt-4">
-                            This portfolio is a showcase of my skills and side projects. I'll keep updating irregularly with new side projects and improving my portfolio website including building blog section since I think this will be another way to always keep track what I have learnt and experienced :)
-                        </p>
+                            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                                I love translating complex problems into snappy, user-centric software. 
+                                My technical interests span full-stack web platforms, machine learning pipelines, 
+                                and game development with Unity and web canvas engines.
+                            </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center mt-8">
-                            <a href="#contact" className="cosmic-button bg-primary text-background hover:bg-primary/90 transition-colors duration-300 px-6 py-3 rounded-full shadow-lg">
-                                {" "}
-                                Contact Me
-                            </a>
+                            <div className="pt-4 border-t-2 border-border/60 flex flex-wrap gap-3">
+                                <a 
+                                    href="#contact" 
+                                    className="pixel-btn pixel-btn-primary gap-1.5 text-xs"
+                                >
+                                    <Send size={14} />
+                                    [CONTACT_ME]
+                                </a>
 
-                            <a href="#contact" className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300">
-                                Download CV here
-                            </a>
+                                <a 
+                                    href="/resume.pdf" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="pixel-btn gap-1.5 text-xs"
+                                >
+                                    <FileText size={14} />
+                                    [ACCESS_RESUME_PDF]
+                                </a>
+                            </div>
                         </div>
                     </div>
 
-                <div className="grid grid-cols-1 gap-6">
-                    <div className="gradient-border p-6 card-hover">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 rounded-full bg-primary/10">
-                                <Code className="h-6 w-6 text-primary"/>
-                            </div>
-                            <div className="text-left">
-                                <h4 className="font-semibold text-lg">Web development</h4>
-                                <p className="text-muted-foreground mt-2">
-                                    I specialize in building responsive and interactive web applications using modern
-                                    technologies like React, Node.js, and more.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="gradient-border p-6 card-hover">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 rounded-full bg-primary/10">
-                                <User className="h-6 w-6 text-primary"/>
+                    {/* Right Column: 3 Retro Skill/Discipline Panels */}
+                    <div className="space-y-4">
+                        <div className="pixel-box p-5 text-left transition-transform hover:translate-x-1">
+                            <div className="flex items-start gap-4">
+                                <div className="p-2.5 bg-primary/10 border-2 border-border text-primary shrink-0">
+                                    <Code className="h-5 w-5" />
                                 </div>
-                                <div className="text-left">
-                                    <h4 className="font-semibold text-lg">UI/UX Design</h4>
-                                    <p className="text-muted-foreground mt-2">
-                                        I have a strong eye for design and user experience, ensuring that my applications are
-                                        not only functional but also visually appealing and user-friendly.
-                                    </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="gradient-border p-6 card-hover">
-                        <div className="flex items-start gap-4">
-                            <div className="p-3 rounded-full bg-primary/10">
-                                <Briefcase className="h-6 w-6 text-primary"/>
-                                </div>
-                                    <div className="text-left">
-                                    <h4 className="font-semibold text-lg">Project Management
+                                <div>
+                                    <h4 className="font-pixel text-sm md:text-base font-bold text-foreground">
+                                        FULL-STACK ARCHITECTURE
                                     </h4>
-                                    <p className="text-muted-foreground mt-2">
-                                        I have experience in managing projects from conception to deployment, ensuring that
-                                        they are delivered on time and meet the client's requirements.
+                                    <p className="font-mono text-xs md:text-sm text-muted-foreground mt-1.5 leading-relaxed">
+                                        Building scalable web applications and REST APIs using modern toolchains 
+                                        like React, Node.js, FastAPI, and PostgreSQL.
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="pixel-box p-5 text-left transition-transform hover:translate-x-1">
+                            <div className="flex items-start gap-4">
+                                <div className="p-2.5 bg-primary/10 border-2 border-border text-primary shrink-0">
+                                    <Layout className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-pixel text-sm md:text-base font-bold text-foreground">
+                                        INTERACTIVE UI & SYSTEMS
+                                    </h4>
+                                    <p className="font-mono text-xs md:text-sm text-muted-foreground mt-1.5 leading-relaxed">
+                                        Designing high-contrast, responsive interfaces with game-inspired feedback, 
+                                        snappy animations, and accessible interactions.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="pixel-box p-5 text-left transition-transform hover:translate-x-1">
+                            <div className="flex items-start gap-4">
+                                <div className="p-2.5 bg-primary/10 border-2 border-border text-primary shrink-0">
+                                    <Cpu className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-pixel text-sm md:text-base font-bold text-foreground">
+                                        AI & AUTOMATION PIPELINES
+                                    </h4>
+                                    <p className="font-mono text-xs md:text-sm text-muted-foreground mt-1.5 leading-relaxed">
+                                        Integrating LLMs, document analysis engines, and cloud databases (Supabase, Groq, HuggingFace) 
+                                        into production workflows.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-              </div>
             </div>
         </section>
     );

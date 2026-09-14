@@ -1,7 +1,8 @@
-import { Moon, Store, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-export const ThemeToggle = () => {
+
+export const ThemeToggle = ({ className, showLabel = false }) => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
@@ -24,16 +25,26 @@ export const ThemeToggle = () => {
     return (
         <button
             onClick={() => setIsDarkMode(!isDarkMode)}
+            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
             className={cn(
-                "fixed max-sm:hidden top-5 right-5 z-50 p-2 rounded-full transition-colors duration-300",
-                "focus:outline-hidden"
-        )}>
-            {
-                isDarkMode?(
-                    <Sun className = 'h-6 w-6 text-yellow-300' />
-                ) : (
-                    <Moon  className = 'h-6 w-6 text-blue-900'/>
+                "pixel-btn py-1 px-2.5 text-xs font-pixel flex items-center gap-1.5 transition-colors",
+                isDarkMode 
+                    ? "bg-secondary text-primary border-border hover:text-white" 
+                    : "bg-secondary text-foreground border-border hover:bg-muted",
+                className
             )}
-        </button >
+        >
+            {isDarkMode ? (
+                <>
+                    <Sun className="h-3.5 w-3.5 text-primary animate-pulse-subtle" />
+                    {showLabel && <span>[LIGHT_MODE]</span>}
+                </>
+            ) : (
+                <>
+                    <Moon className="h-3.5 w-3.5 text-foreground" />
+                    {showLabel && <span>[DARK_MODE]</span>}
+                </>
+            )}
+        </button>
     );
 };
