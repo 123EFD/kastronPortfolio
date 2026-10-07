@@ -1,17 +1,11 @@
-import { Mail, MapPin, Send, Copy, Check, Terminal, ExternalLink } from "lucide-react";
+import { MapPin, Copy, Check, Terminal, ExternalLink, Briefcase, Calendar, Clock, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { DiscordIcon, XIcon, LinkedInIcon } from "./UI/customIcon";
 
 export const ContactSection = () => {
     const { toast } = useToast();
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isCopiedDiscord, setIsCopiedDiscord] = useState(false);
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
 
     const discordUserId = "kas0056";
 
@@ -25,212 +19,226 @@ export const ContactSection = () => {
         });
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        // Simulated transmission with feedback
-        setTimeout(() => {
-            toast({
-                title: "[TRANSMISSION_SUCCESSFUL]",
-                description: `Thank you, ${formData.name}! Your message has been logged.`,
-            });
-            setIsSubmitting(false);
-            setFormData({ name: '', email: '', message: '' });
-        }, 1200);
-    };
-
     return (
         <section id="contact" className="py-24 px-4 relative">
             <div className="container mx-auto max-w-5xl">
                 {/* Section Header */}
                 <div className="text-center mb-16">
                     <div className="pixel-badge mb-3 text-primary">
-                        [ COMMUNICATIONS_RELAY // FREQ: 2026 ]
+                        [ COMMUNICATIONS &amp; STATUS // FREQ: 2026 ]
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold font-pixel">
-                        INITIALIZE <span className="text-primary">&lt;CONTACT&gt;</span>
+                        STATUS &amp; <span className="text-primary">&lt;CONNECT&gt;</span>
                     </h2>
                     <p className="font-mono text-sm text-muted-foreground mt-3 max-w-xl mx-auto">
-                        Have an opportunity, collaboration idea, or question? Send a transmission or connect on socials.
+                        Current career objectives, active availability, and verified communication channels.
                     </p>
                 </div>
 
-                {/* Main 2-Column Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                {/* 2-Column Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
                     
-                    {/* Left Column: Terminal Diagnostics & Socials */}
-                    <div className="pixel-box">
-                        <div className="bg-secondary px-4 py-2 border-b-2 border-border flex items-center justify-between font-mono text-xs">
-                            <span className="font-pixel text-primary font-bold">
-                                COMM_DIAGNOSTICS.LOG
-                            </span>
-                            <span className="text-muted-foreground text-[10px]">[PORT_8080]</span>
-                        </div>
-
-                        <div className="p-6 space-y-6 text-left font-mono">
-                            <div>
-                                <h3 className="font-pixel text-base font-bold mb-2 text-foreground">
-                                    DIRECT COMMUNICATIONS
-                                </h3>
-                                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
-                                    Always open to discussing full-stack software roles, open-source projects, 
-                                    and innovative web/game ideas.
-                                </p>
+                    {/* Left Column: Direct Communication Channels */}
+                    <div className="pixel-box flex flex-col justify-between">
+                        <div>
+                            <div className="bg-secondary px-4 py-2 border-b-2 border-border flex items-center justify-between font-mono text-xs">
+                                <span className="font-pixel text-primary font-bold">
+                                    COMM_CHANNELS.LOG
+                                </span>
+                                <span className="text-muted-foreground text-[10px]">[PORT_8080]</span>
                             </div>
 
-                            {/* Status & Location specs */}
-                            <div className="space-y-3 pt-2 text-xs">
-                                <div className="flex items-center gap-2">
-                                    <MapPin size={15} className="text-primary" />
-                                    <span className="text-muted-foreground">LOCATION:</span>
-                                    <span className="font-bold text-foreground">Malaysia (UTC+8)</span>
+                            <div className="p-6 space-y-6 text-left font-mono">
+                                <div>
+                                    <h3 className="font-pixel text-base font-bold mb-2 text-foreground">
+                                        VERIFIED CONTACT POINTS
+                                    </h3>
+                                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                                        To prevent spam, form transmissions are disabled. 
+                                        Please reach out directly through LinkedIn messaging or Discord for the fastest response!
+                                    </p>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <Terminal size={15} className="text-primary" />
-                                    <span className="text-muted-foreground">AVAILABILITY:</span>
-                                    <span className="font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 border border-emerald-500/30">
-                                        OPEN_FOR_OPPORTUNITIES
-                                    </span>
-                                </div>
-                            </div>
 
-                            {/* Discord Quick Copy */}
-                            <div className="p-3 bg-secondary border-2 border-border flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <DiscordIcon size={20} className="text-[#5865F2]" />
-                                    <div>
-                                        <div className="text-[10px] text-muted-foreground">DISCORD_ID</div>
-                                        <div className="text-xs font-bold text-foreground">{discordUserId}</div>
+                                {/* Location & Meta */}
+                                <div className="space-y-3 pt-2 text-xs">
+                                    <div className="flex items-center gap-2">
+                                        <MapPin size={15} className="text-primary" />
+                                        <span className="text-muted-foreground">LOCATION:</span>
+                                        <span className="font-bold text-foreground">Malaysia (UTC+8)</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Terminal size={15} className="text-primary" />
+                                        <span className="text-muted-foreground">WORK_PREFERENCE:</span>
+                                        <span className="font-bold text-foreground">Remote / Hybrid</span>
                                     </div>
                                 </div>
-                                <button 
-                                    onClick={handleCopyDiscord}
-                                    className="pixel-btn py-1 px-2 text-xs gap-1"
-                                    title="Copy Discord Tag"
-                                >
-                                    {isCopiedDiscord ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
-                                    <span>{isCopiedDiscord ? "COPIED" : "COPY"}</span>
-                                </button>
-                            </div>
 
-                            {/* Social Grid */}
-                            <div className="pt-2">
-                                <div className="font-pixel text-xs text-muted-foreground mb-3 uppercase">
-                                    // SOCIAL_CHANNELS
+                                {/* Discord Quick Copy */}
+                                <div className="p-3 bg-secondary border-2 border-border flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <DiscordIcon size={20} className="text-[#5865F2]" />
+                                        <div>
+                                            <div className="text-[10px] text-muted-foreground">DISCORD_TAG</div>
+                                            <div className="text-xs font-bold text-foreground font-mono">{discordUserId}</div>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        onClick={handleCopyDiscord}
+                                        className="pixel-btn py-1 px-2.5 text-xs gap-1"
+                                        title="Copy Discord Tag"
+                                    >
+                                        {isCopiedDiscord ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+                                        <span>{isCopiedDiscord ? "COPIED" : "COPY"}</span>
+                                    </button>
                                 </div>
-                                <div className="flex flex-wrap gap-2.5">
-                                    <a 
-                                        href="https://www.linkedin.com/in/shier72/" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
-                                    >
-                                        <LinkedInIcon size={14} />
-                                        <span>LINKEDIN</span>
-                                    </a>
-                                    <a 
-                                        href="https://twitter.com/123EFD" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
-                                    >
-                                        <XIcon size={14} />
-                                        <span>X/TWITTER</span>
-                                    </a>
-                                    <a 
-                                        href="https://youtube.com/@kas-h9l?si=JLL32qSXjyJZ_yuD" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
-                                    >
-                                        <span>YOUTUBE</span>
-                                    </a>
-                                    <a 
-                                        href="https://www.instagram.com/chinshier" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
-                                    >
-                                        <span>INSTAGRAM</span>
-                                    </a>
+
+                                {/* Social Links Grid */}
+                                <div className="pt-2">
+                                    <div className="font-pixel text-xs text-muted-foreground mb-3 uppercase">
+                                        // OFFICIAL_CHANNELS
+                                    </div>
+                                    <div className="flex flex-wrap gap-2.5">
+                                        <a 
+                                            href="https://www.linkedin.com/in/shier72/" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="pixel-btn pixel-btn-primary py-1.5 px-3 text-xs gap-1.5"
+                                        >
+                                            <LinkedInIcon size={14} />
+                                            <span>LINKEDIN</span>
+                                            <ExternalLink size={12} />
+                                        </a>
+                                        <a 
+                                            href="https://github.com/123EFD" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
+                                        >
+                                            <span>GITHUB</span>
+                                            <ExternalLink size={12} />
+                                        </a>
+                                        <a 
+                                            href="https://twitter.com/123EFD" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
+                                        >
+                                            <XIcon size={14} />
+                                            <span>X/TWITTER</span>
+                                        </a>
+                                        <a 
+                                            href="https://youtube.com/@kas-h9l?si=JLL32qSXjyJZ_yuD" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
+                                        >
+                                            <span>YOUTUBE</span>
+                                        </a>
+                                        <a 
+                                            href="https://www.instagram.com/chinshier" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="pixel-btn py-1.5 px-2.5 text-xs gap-1.5"
+                                        >
+                                            <span>INSTAGRAM</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Side: Retro Transmission Form with Name & Email */}
-                    <div className="pixel-box">
-                        <div className="bg-secondary px-4 py-2 border-b-2 border-border flex items-center justify-between font-mono text-xs">
-                            <span className="font-pixel text-foreground font-bold">
-                                SEND_TRANSMISSION.SH
-                            </span>
-                            <span className="text-primary text-[10px]">[ENCRYPTED]</span>
+                    {/* Right Column: 8-Bit Career Status Board */}
+                    <div className="pixel-box flex flex-col justify-between">
+                        <div>
+                            <div className="bg-secondary px-4 py-2 border-b-2 border-border flex items-center justify-between font-mono text-xs">
+                                <span className="font-pixel text-primary font-bold flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
+                                    AVAILABILITY_STATUS.DAT
+                                </span>
+                                <span className="font-pixel text-[10px] text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 border border-emerald-500/30">
+                                    ACTIVE_SEEKING
+                                </span>
+                            </div>
+
+                            <div className="p-6 space-y-5 text-left font-mono">
+                                <div>
+                                    <h3 className="font-pixel text-base font-bold text-foreground flex items-center gap-2">
+                                        <Briefcase size={16} className="text-primary" />
+                                        CURRENT OBJECTIVES &amp; ROLES
+                                    </h3>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                        Actively open to the following positions:
+                                    </p>
+                                </div>
+
+                                {/* Status Card 1: Remote Annotator */}
+                                <div className="p-4 bg-secondary/50 border-2 border-border space-y-2 relative overflow-hidden group">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-pixel text-xs text-primary font-bold">
+                                            [ROLE_01 // REMOTE_AI]
+                                        </span>
+                                        <span className="text-[10px] font-pixel px-1.5 py-0.5 bg-primary/10 border border-primary text-primary">
+                                            PART-TIME
+                                        </span>
+                                    </div>
+                                    <h4 className="font-pixel text-sm font-bold text-foreground">
+                                        Remote AI Data Annotator
+                                    </h4>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                        AI data annotation, prompt evaluation, model output quality verification, data labeling, and ground-truth validation.
+                                    </p>
+                                    <div className="flex items-center gap-3 pt-1 text-[11px] text-foreground font-semibold">
+                                        <span className="flex items-center gap-1">
+                                            <Clock size={12} className="text-primary" />
+                                            Flexible Hours
+                                        </span>
+                                        <span>•</span>
+                                        <span>100% Remote</span>
+                                    </div>
+                                </div>
+
+                                {/* Status Card 2: Voluntary Internship */}
+                                <div className="p-4 bg-secondary/50 border-2 border-border space-y-2 relative overflow-hidden group">
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-pixel text-xs text-accent font-bold">
+                                            [ROLE_02 // INTERNSHIP]
+                                        </span>
+                                        <span className="text-[10px] font-pixel px-1.5 py-0.5 bg-accent/10 border border-accent text-accent">
+                                            VOLUNTARY
+                                        </span>
+                                    </div>
+                                    <h4 className="font-pixel text-sm font-bold text-foreground">
+                                        Software Engineering Internship
+                                    </h4>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">
+                                        Full-Stack web development, API engineering, interactive UI systems, and backend automation pipelines.
+                                    </p>
+                                    <div className="flex items-center gap-3 pt-1 text-[11px] text-foreground font-semibold">
+                                        <span className="flex items-center gap-1">
+                                            <Calendar size={12} className="text-accent" />
+                                            July Intake
+                                        </span>
+                                        <span>•</span>
+                                        <span className="text-primary">3 Months Duration</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-left font-mono">
-                            <div>
-                                <label htmlFor="name" className="block text-xs font-bold font-pixel text-foreground mb-1.5 uppercase">
-                                    SENDER_NAME *
-                                </label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    required
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    placeholder="Your Name / Call-sign"
-                                    className="pixel-input text-xs md:text-sm"
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="email" className="block text-xs font-bold font-pixel text-foreground mb-1.5 uppercase">
-                                    RETURN_EMAIL *
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="name@example.com"
-                                    className="pixel-input text-xs md:text-sm"
-                                />
-                            </div>
-
-                            <div>
-                                <label htmlFor="message" className="block text-xs font-bold font-pixel text-foreground mb-1.5 uppercase">
-                                    PAYLOAD_MESSAGE *
-                                </label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    required
-                                    rows={4}
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    placeholder="Type your message payload here..."
-                                    className="pixel-input text-xs md:text-sm resize-none"
-                                />
-                            </div>
-
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
+                        {/* Bottom Direct Action Trigger */}
+                        <div className="p-6 pt-0">
+                            <a 
+                                href="https://www.linkedin.com/in/shier72/"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="pixel-btn pixel-btn-primary w-full py-2.5 gap-2 text-sm justify-center"
                             >
-                                <Send size={15} />
-                                <span>{isSubmitting ? "TRANSMITTING..." : "[TRANSMIT_MESSAGE]"}</span>
-                            </button>
-                        </form>
+                                <LinkedInIcon size={16} />
+                                <span>[CONNECT_ON_LINKEDIN]</span>
+                                <ExternalLink size={14} />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
