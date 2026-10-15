@@ -1,4 +1,5 @@
-import { ExternalLink, Github, ArrowRight, Gamepad2, Database, Brain, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Github, ArrowRight, Gamepad2, Brain, Sparkles, Activity, Terminal } from "lucide-react";
 
 const projects = [
     {
@@ -7,7 +8,7 @@ const projects = [
         title: "Flappytron",
         status: "COMPLETED",
         description: "An arcade evolution of the classic Flappy Bird built with Unity. Engineered responsive input polling, audio triggers, custom physics curves, and high-score persistence.",
-        image: "/projects/project1.png",
+        image: "/projects/flappytron.png?v=2",
         tags: ["Unity", "C#", "Game Physics", "Audio FX"],
         demoUrl: "https://khytron.itch.io/kastron",
         githubUrl: "https://github.com/Khytron/Flappytron.git",
@@ -16,40 +17,116 @@ const projects = [
     {
         id: 2,
         missionId: "MISSION_02",
-        title: "Financial Dashboard",
-        status: "DEPLOYED",
-        description: "A data analytics platform providing granular personal financial intelligence. Built with Streamlit and Plotly for high-throughput visualization and cashflow projections.",
-        image: "/projects/project2.png",
-        tags: ["Python", "Streamlit", "Plotly", "Data Analytics"],
-        demoUrl: "https://kas-financialdashboard.streamlit.app/",
-        githubUrl: "https://github.com/123EFD/FINANCEAPP.git",
-        icon: Database
-    },
-    {
-        id: 3,
-        missionId: "MISSION_03",
         title: "Booklonian AI",
         status: "LIVE",
         description: "An AI-driven learning companion platform enabling users to create topic-focused conversational agents. Integrated Clerk authentication, Supabase backend, and Vapi audio pipelines.",
-        image: "/projects/project3.png",
+        image: "/projects/booklonian.png?v=2",
         tags: ["Next.js", "React", "Clerk", "Supabase", "Vapi", "Tailwind"],
-        demoUrl: "https://saas-pi-inky-49.vercel.app/",
+        demoUrl: "https://booklovian.vercel.app/",
         githubUrl: "https://github.com/123EFD/saas-app.git",
         icon: Brain
     },
     {
-        id: 4,
-        missionId: "MISSION_04",
+        id: 3,
+        missionId: "MISSION_03",
         title: "Student Performance Predictor",
         status: "IN_PROGRESS",
         description: "Predictive academic evaluation suite utilizing automated PDF parsing and Groq LLM inference to extract student records and generate customized curriculum interventions.",
-        image: "/projects/project4.png",
+        image: "/projects/student-predictor.png?v=2",
         tags: ["Python", "FastAPI", "HuggingFace", "Groq LLM", "Flutter"],
-        demoUrl: "https://recommender-api-ten.vercel.app/",
+        demoUrl: "https://suluh-ai.vercel.app/",
         githubUrl: "https://github.com/123EFD/recommender-api",
         icon: Sparkles
     },
+    {
+        id: 4,
+        missionId: "MISSION_04",
+        title: "Glance-mini",
+        status: "COMPLETED",
+        description: "Lightweight, real-time system contention diagnostic tool built in Python. Identifies CPU/memory spikes and process I/O bottlenecks with automated incident snapshots, streaming metrics via WebSockets and Prometheus.",
+        image: null,
+        tags: ["Python", "FastAPI", "WebSockets", "Prometheus", "Docker", "asyncio"],
+        demoUrl: null,
+        githubUrl: "https://github.com/123EFD/glances-mini",
+        icon: Activity,
+        fallbackBadge: "SYS_TELEMETRY // V1.0",
+        fallbackSubtitle: "REAL-TIME CONTENTION ENGINE",
+        metrics: [
+            { label: "CPU%", val: "LIVE" },
+            { label: "WS", val: "STREAM" },
+            { label: "PROM", val: "9090" }
+        ]
+    },
 ];
+
+// Retro 8-bit System Cover component with fallback handling
+const ProjectCover = ({ project }) => {
+    const [imgError, setImgError] = useState(false);
+    const IconComponent = project.icon || Terminal;
+
+    if (project.image && !imgError) {
+        return (
+            <div className="h-52 overflow-hidden border-b-2 border-border bg-muted/40 relative">
+                <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    onError={() => setImgError(true)}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 pointer-events-none retro-scanlines opacity-25" />
+            </div>
+        );
+    }
+
+    // Default 8-bit / Terminal Front Page cover when no image is present or fails to load
+    return (
+        <div className="h-52 overflow-hidden border-b-2 border-border bg-card relative flex flex-col justify-between p-4 font-mono select-none">
+            {/* Retro grid background & scanlines */}
+            <div className="absolute inset-0 retro-grid-bg opacity-30" />
+            <div className="absolute inset-0 retro-scanlines opacity-30 pointer-events-none" />
+
+            {/* Top diagnostic status bar */}
+            <div className="relative z-10 flex items-center justify-between text-[11px] text-muted-foreground border-b border-border/50 pb-2">
+                <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-none bg-emerald-400 animate-pulse inline-block" />
+                    <span className="font-pixel text-[10px] text-primary">
+                        [{project.fallbackBadge || "SYS_DIAGNOSTIC // ONLINE"}]
+                    </span>
+                </div>
+                <span className="text-[10px] text-muted-foreground font-mono hidden sm:inline">
+                    HOST_PROCESS_OK
+                </span>
+            </div>
+
+            {/* Center: System Glyph + Title */}
+            <div className="relative z-10 flex flex-col items-center justify-center my-auto py-2 text-center">
+                <div className="w-12 h-12 border-2 border-primary bg-secondary/80 flex items-center justify-center shadow-[3px_3px_0px_0px_var(--primary)] mb-2 group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                    <IconComponent className="w-6 h-6 text-primary animate-pulse-subtle" />
+                </div>
+                <div className="font-pixel text-base text-foreground tracking-wider uppercase">
+                    &gt; {project.title} &lt;
+                </div>
+                <div className="text-[10px] font-mono text-muted-foreground tracking-tight mt-0.5">
+                    [{project.fallbackSubtitle || "SYSTEM_SERVICE_MODULE"}]
+                </div>
+            </div>
+
+            {/* Bottom telemetry readouts */}
+            <div className="relative z-10 grid grid-cols-3 gap-1.5 text-[10px] border-t border-border/50 pt-2 text-center">
+                {(project.metrics || [
+                    { label: "STATUS", val: "ACTIVE" },
+                    { label: "STREAM", val: "ONLINE" },
+                    { label: "TELEMETRY", val: "OK" }
+                ]).map((metric, i) => (
+                    <div key={i} className="bg-secondary/60 border border-border/70 py-1 px-1 flex flex-col items-center justify-center">
+                        <span className="text-[9px] text-muted-foreground font-mono uppercase">{metric.label}</span>
+                        <span className="text-primary font-pixel text-[11px] font-bold">{metric.val}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export const ProjectsSection = () => {
     return (
@@ -89,14 +166,8 @@ export const ProjectsSection = () => {
                                 </span>
                             </div>
 
-                            {/* Image Preview with 8-bit border */}
-                            <div className="h-52 overflow-hidden border-b-2 border-border bg-muted/40 relative">
-                                <img 
-                                    src={project.image} 
-                                    alt={project.title} 
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                />
-                            </div>
+                            {/* Image Preview / Default 8-bit Front Page */}
+                            <ProjectCover project={project} />
 
                             {/* Content Body */}
                             <div className="p-6 flex flex-col flex-grow text-left">
@@ -122,16 +193,18 @@ export const ProjectsSection = () => {
 
                                 {/* Action Buttons */}
                                 <div className="flex items-center justify-between pt-3 border-t-2 border-border/60 mt-auto">
-                                    <div className="flex gap-2.5">
-                                        <a 
-                                            href={project.demoUrl}
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
-                                            className="pixel-btn pixel-btn-primary py-1.5 px-3 text-xs gap-1.5"
-                                        >
-                                            <ExternalLink size={14} />
-                                            [LIVE_DEMO]
-                                        </a>
+                                    <div className="flex gap-2.5 flex-wrap">
+                                        {project.demoUrl && (
+                                            <a 
+                                                href={project.demoUrl}
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="pixel-btn pixel-btn-primary py-1.5 px-3 text-xs gap-1.5"
+                                            >
+                                                <ExternalLink size={14} />
+                                                [LIVE_DEMO]
+                                            </a>
+                                        )}
 
                                         <a 
                                             href={project.githubUrl}
